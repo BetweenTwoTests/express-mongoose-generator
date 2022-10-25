@@ -4,24 +4,27 @@
  * Module dependencies
  */
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 /**
  * {modelNameCaptialized} Schema
  */
 const {schemaName} = new Schema(
-        {fields}
-    );
+    {fields}
+);
 
 /**
  * Validations
  */
 
 /**
- * Methods
+ * Virtuals
  */
 
- {schemaName}.methods = {
+/**
+ * Methods
+ */
+{schemaName}.methods = {
     hello_world: function () {
       console.log('Hello world from {modelNameCaptialized} model methods');
     },
@@ -30,10 +33,10 @@ const {schemaName} = new Schema(
 /**
  * Statics
  */
-
- {schemaName}.statics = {
+{schemaName}.statics = {
     hello_world: function () {
       console.log('Hello world from {modelNameCaptialized} model statics');
     },
 }
+
 module.exports = mongoose.model('{modelNameCaptialized}', {schemaName});
