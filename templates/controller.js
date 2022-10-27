@@ -135,21 +135,21 @@ exports.paginate = async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
 
     try {
-      // execute query with page and limit values
-      const {pluralName} = await {modelName}.find()
+        // execute query with page and limit values
+        const {pluralName} = await {modelName}.find()
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
 
-      // return response with {name} and current page
-      res.json({
+        // return response with {name} and current page
+        res.json({
         {pluralName},
         currentPage: page
-      });
+        });
     } catch (err) {
         return res.status(500).json({
             message: 'Error while paginating {name}.',
             error: err
         });
     }
-  });
+};

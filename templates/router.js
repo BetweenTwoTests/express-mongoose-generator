@@ -1,35 +1,8 @@
-const express = require('express');
-const router = express.Router();
 const {controllerName} = require({controllerPath});
 
-/*
- * GET
- */
-router.get('/', {controllerName}.list);
-
-/*
- * GET
- */
-router.get('/:id', {controllerName}.show);
-
-/*
- * GET
- */
-router.get('/p/paginate', {controllerName}.paginate);
-
-/*
- * POST
- */
-router.post('/', {controllerName}.create);
-
-/*
- * PUT
- */
-router.put('/:id', {controllerName}.update);
-
-/*
- * DELETE
- */
-router.delete('/:id', {controllerName}.remove);
-
-module.exports = router;
+app.get('/{modelName}/', {controllerName}.list);
+app.get('/{modelName}/:id', {controllerName}.show);
+app.get('/{modelName}//paginate', {controllerName}.paginate);
+app.post('/{modelName}/', {controllerName}.create);
+app.put('/{modelName}/:id', {controllerName}.update);
+app.delete('/{modelName}/:id', {controllerName}.remove);
