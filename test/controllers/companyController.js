@@ -5,50 +5,50 @@
  */
 
 const mongoose = require('mongoose');
-const _modelNameCapitalized_Model = mongoose.model('_modelNameCapitalized_');
+const CompanyModel = mongoose.model('Company');
 
 /**
- * _modelNameCapitalized_ tag & component
+ * Company tag & component
  *
  * @openapi
  * tags:
- *   - name: _modelName_
- *     description: _modelName_ description
+ *   - name: company
+ *     description: company description
  *
  * components:
  *  schemas:
- *    New_modelNameCapitalized_:
+ *    NewCompany:
  *      type: object
  *      properties:
  *        name:
  *          type: string
  *          description: name
  *          example: lorem ipsum
- *    Update_modelNameCapitalized_:
+ *    UpdateCompany:
  *      type: object
  *      properties:
  *         name:
  *            type: string
  *            description: name
  *            example: lorem ipsum
- *    _modelNameCapitalized_:
+ *    Company:
  *      allOf:
  *        - type: object
  *          properties:
  *            id:
  *              type: string
- *              description: The _modelNameCapitalized_ model ObjectID.
- *        - $ref: '#/components/schemas/New_modelNameCapitalized_'
+ *              description: The Company model ObjectID.
+ *        - $ref: '#/components/schemas/NewCompany'
  */
 
 /**
  * @openapi
- * /_modelName_/:
+ * /company/:
  *   get:
  *     tags:
- *       - _modelName_
- *     summary: Returns a list of _modelName_ objects
- *     description: Get all _modelName_ objects.
+ *       - company
+ *     summary: Returns a list of company objects
+ *     description: Get all company objects.
  *
  *     responses:
  *      '200':
@@ -58,29 +58,29 @@ const _modelNameCapitalized_Model = mongoose.model('_modelNameCapitalized_');
  *            schema:
  *              type: array
  *              items:
- *                $ref: '#/components/schemas/_modelNameCapitalized_'
+ *                $ref: '#/components/schemas/Company'
  *      '500':
  *        description: Error
  */
 exports.list = async (req, res) => {
-  console.log('list all _modelNameCapitalized_');
+  console.log('list all Company');
 
-  let _modelName_s = await _modelNameCapitalized_Model.find({}).exec();
-  return res.json(_modelName_s);
+  let companys = await CompanyModel.find({}).exec();
+  return res.json(companys);
 };
 
 /**
  * @openapi
- * /_modelName_/{id}:
+ * /company/{id}:
  *   get:
  *     tags:
- *       - _modelName_
- *     summary: Find _modelNameCapitalized_ by id
- *     description: Returns a single _modelNameCapitalized_
+ *       - company
+ *     summary: Find Company by id
+ *     description: Returns a single Company
  *     parameters:
  *       - name: id
  *         in: path
- *         description: _modelNameCapitalized_ ObjectID to delete
+ *         description: Company ObjectID to delete
  *         required: true
  *         schema:
  *           type: string
@@ -91,34 +91,34 @@ exports.list = async (req, res) => {
  *          application/json:
  *            schema:
  *              schema:
- *                $ref: '#/components/schemas/_modelNameCapitalized_'
+ *                $ref: '#/components/schemas/Company'
  *      '404':
  *        description: Not Found
  */
 exports.show = async (req, res) => {
-  console.log('find a _modelNameCapitalized_');
+  console.log('find a Company');
 
   let id = req.params.id;
 
-  let _modelName_ = await _modelNameCapitalized_Model.findOne({ _id: id }).exec();
+  let company = await CompanyModel.findOne({ _id: id }).exec();
 
-  return res.json(_modelName_);
+  return res.json(company);
 };
 
 /**
  * @openapi
- * /_modelName_/:
+ * /company/:
  *   post:
  *     tags:
- *       - _modelName_
- *     summary: Create a new _modelName_
- *     description: Create a new _modelName_.
+ *       - company
+ *     summary: Create a new company
+ *     description: Create a new company.
  *     requestBody:
- *       description: Create a new _modelName_ using the following contents.
+ *       description: Create a new company using the following contents.
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/_modelNameCapitalized_'
+ *             $ref: '#/components/schemas/Company'
  *       required: true
  *     responses:
  *       '200':
@@ -126,43 +126,44 @@ exports.show = async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/_modelNameCapitalized_'
+ *               $ref: '#/components/schemas/Company'
  *       '405':
  *         description: Invalid input
  */
 exports.create = async (req, res) => {
-  console.log('create _modelNameCapitalized_');
+  console.log('create Company');
 
-  let _modelName_ = new _modelNameCapitalized_Model({
-    _createFields_,
+  let company = new CompanyModel({
+    
+			clinics : req.body.clinics,
   });
 
-  _modelName_ = await _modelName_.save();
+  company = await company.save();
 
-  return res.status(201).json(_modelName_);
+  return res.status(201).json(company);
 };
 
 /**
  * @openapi
- * /_modelName_/{id}:
+ * /company/{id}:
  *   put:
  *     tags:
- *       - _modelName_
- *     summary: Update a _modelName_
- *     description: Update an existing _modelName_
+ *       - company
+ *     summary: Update a company
+ *     description: Update an existing company
  *     parameters:
  *       - name: id
  *         in: path
- *         description: _modelNameCapitalized_ ObjectID to delete
+ *         description: Company ObjectID to delete
  *         required: true
  *         schema:
  *           type: string
  *     requestBody:
- *       description: Update an existent _modelName_
+ *       description: Update an existent company
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Update_modelNameCapitalized_'
+ *             $ref: '#/components/schemas/UpdateCompany'
  *       required: true
  *     responses:
  *       '200':
@@ -170,36 +171,37 @@ exports.create = async (req, res) => {
  *         content:
  *           application/json:
  *             schmea:
- *               $ref: '#/components/schemas/_modelNameCapitalized_'
+ *               $ref: '#/components/schemas/Company'
  *       '500':
  *         description: Error
  */
 exports.update = async (req, res) => {
-  console.log('update _modelNameCapitalized_');
+  console.log('update Company');
 
   let id = req.params.id;
-  let _modelName_;
+  let company;
 
-  _modelName_ = await _modelNameCapitalized_Model.findOne({ _id: id }).exec();
+  company = await CompanyModel.findOne({ _id: id }).exec();
 
-  _updateFields_;
+  company.clinics = req.body.clinics ? req.body.clinics : company.clinics;
+			;
 
-  _modelName_ = await _modelName_.save();
-  return res.json(_modelName_);
+  company = await company.save();
+  return res.json(company);
 };
 
 /**
  * @openapi
- * /_modelName_/{id}:
+ * /company/{id}:
  *   delete:
  *     tags:
- *       - _modelName_
- *     summary: Delete a _modelName_
- *     description: Delete an existing _modelName_
+ *       - company
+ *     summary: Delete a company
+ *     description: Delete an existing company
  *     parameters:
  *       - name: id
  *         in: path
- *         description: _modelNameCapitalized_ ObjectID to delete
+ *         description: Company ObjectID to delete
  *         required: true
  *         schema:
  *           type: string
@@ -212,7 +214,7 @@ exports.update = async (req, res) => {
 exports.remove = async (req, res) => {
   let id = req.params.id;
 
-  await _modelNameCapitalized_Model.findByIdAndRemove(id).exec();
+  await CompanyModel.findByIdAndRemove(id).exec();
   return res.status(204).json();
 };
 
@@ -221,15 +223,15 @@ exports.paginate = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
   // execute query with page and limit values
-  const _modelName_s = await _modelNameCapitalized_Model
+  const companys = await CompanyModel
     .find()
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .exec();
 
-  // return response with _modelName_ and current page
+  // return response with company and current page
   res.json({
-    _modelName_s,
+    companys,
     currentPage: page,
   });
 };

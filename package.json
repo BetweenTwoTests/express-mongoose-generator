@@ -1,7 +1,7 @@
 {
     "name": "express-mongoose-generator",
-    "version": "3.2.2",
-    "description": "It’s a mongoose model, REST controller and Express router code generator for Express.js 4 application",
+    "version": "0.0.1",
+    "description": "Opinionated express-mongoose-generator",
     "author": "Damien Perrier <damienperrier33@gmail.com>",
     "contributors": [
         "DamienP33",
@@ -28,10 +28,11 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/BetweenTwoTests/express-mongoose-generator/tree/conform-to-madhums"
+        "url": "https://github.com/BetweenTwoTests/express-mongoose-generator"
     },
     "main": "bin/mongoose-gen",
     "scripts": {
+        "mongoose-gen": "./bin/mongoose-gen",
         "test": "mocha --reporter spec --bail --check-leaks test/",
         "lint": "jshint ./**/*.js ./bin/mongoose-gen"
     },
@@ -48,10 +49,14 @@
         "commander": "^2.5.0"
     },
     "devDependencies": {
-        "jshint": "^2.8.0",
+        "@babel/eslint-parser": "^7.19.1",
+        "eslint": "^8.26.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
         "mkdirp": "^0.5.0",
         "mocha": "^8.3.2",
         "nexpect": "^0.4.2",
+        "prettier": "^2.7.1",
         "rimraf": "^2.2.8"
     },
     "files": [

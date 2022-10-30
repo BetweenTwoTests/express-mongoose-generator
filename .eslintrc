@@ -1,0 +1,22 @@
+{
+	"extends": ["eslint:recommended", "plugin:prettier/recommended"],
+	"plugins": ["prettier"],
+	"env": {
+		"browser": false,
+		"es6": true,
+		"node": true
+	},
+	"parser": "@babel/eslint-parser",
+	"rules": {
+		"prettier/prettier": ["error", {
+			"semi": true,
+			"singleQuote": true,
+			"tabWidth": 2,
+			"useTabs": false,
+			"endOfLine": "auto",
+			"printWidth": 240,
+			"quote-props": ["as-needed"]
+		}],
+		"no-console": "off"
+	}
+}

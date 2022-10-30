@@ -7,10 +7,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /**
- * {modelNameCaptialized} Schema
+ * _modelNameCapitalized_ Schema
  */
-const {schemaName} = new Schema(
-    {fields}
+// eslint-disable-next-line prettier/prettier
+const _schemaName_ = new Schema(
+    _fields_
 );
 
 /**
@@ -24,19 +25,19 @@ const {schemaName} = new Schema(
 /**
  * Methods
  */
-{schemaName}.methods = {
-    hello_world: function () {
-      console.log('Hello world from {modelNameCaptialized} model methods');
-    },
-  };
+_schemaName_.methods = {
+  hello_world: function () {
+    console.log('Hello world from _modelNameCapitalized_ model methods');
+  },
+};
 
 /**
  * Statics
  */
-{schemaName}.statics = {
-    hello_world: function () {
-      console.log('Hello world from {modelNameCaptialized} model statics');
-    },
-}
+_schemaName_.statics = {
+  hello_world: function () {
+    console.log('Hello world from _modelNameCapitalized_ model statics');
+  },
+};
 
-module.exports = mongoose.model('{modelNameCaptialized}', {schemaName});
+module.exports = mongoose.model('_modelNameCapitalized_', _schemaName_);
