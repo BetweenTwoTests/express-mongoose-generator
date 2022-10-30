@@ -12,7 +12,8 @@ const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema(
     {
-{ type: clinics : Array
+name: { type : String},
+nuae: { type : String}
 }
 );
 

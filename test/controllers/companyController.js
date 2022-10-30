@@ -134,8 +134,8 @@ exports.create = async (req, res) => {
   console.log('create Company');
 
   let company = new CompanyModel({
-    
-			clinics : req.body.clinics,
+    name: req.body.name,
+    nuae: req.body.nuae,
   });
 
   company = await company.save();
@@ -183,8 +183,8 @@ exports.update = async (req, res) => {
 
   company = await CompanyModel.findOne({ _id: id }).exec();
 
-  company.clinics = req.body.clinics ? req.body.clinics : company.clinics;
-			;
+  company.name = req.body.name ? req.body.name : company.name;
+  company.nuae = req.body.nuae ? req.body.nuae : company.nuae;
 
   company = await company.save();
   return res.json(company);
@@ -223,8 +223,7 @@ exports.paginate = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
   // execute query with page and limit values
-  const companys = await CompanyModel
-    .find()
+  const companys = await CompanyModel.find()
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .exec();
