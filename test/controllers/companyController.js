@@ -22,14 +22,14 @@ const CompanyModel = mongoose.model('Company');
  *      properties:
  *        name:
  *          type: string
- *          description: name
+ *          description: this is an example property generated for reference. The generator will generateProperties will be generated based on Model (TODO).
  *          example: lorem ipsum
  *    UpdateCompany:
  *      type: object
  *      properties:
  *         name:
  *            type: string
- *            description: name
+ *            description: this is an example property generated for reference. The generator will generateProperties will be generated based on Model (TODO).
  *            example: lorem ipsum
  *    Company:
  *      allOf:
@@ -102,7 +102,7 @@ exports.show = async (req, res) => {
 
   let company = await CompanyModel.findOne({ _id: id }).exec();
 
-  return res.json(company);
+  return res.send(company);
 };
 
 /**
@@ -134,13 +134,13 @@ exports.create = async (req, res) => {
   console.log('create Company');
 
   let company = new CompanyModel({
-    name: req.body.name,
-    nuae: req.body.nuae,
+    
+			name : req.body.name,
   });
 
   company = await company.save();
 
-  return res.status(201).json(company);
+  return res.status(201).send(company);
 };
 
 /**
@@ -184,10 +184,11 @@ exports.update = async (req, res) => {
   company = await CompanyModel.findOne({ _id: id }).exec();
 
   company.name = req.body.name ? req.body.name : company.name;
-  company.nuae = req.body.nuae ? req.body.nuae : company.nuae;
+			
+;
 
   company = await company.save();
-  return res.json(company);
+  return res.send(company);
 };
 
 /**
@@ -215,7 +216,8 @@ exports.remove = async (req, res) => {
   let id = req.params.id;
 
   await CompanyModel.findByIdAndRemove(id).exec();
-  return res.status(204).json();
+
+  return res.status(204).send();
 };
 
 exports.paginate = async (req, res) => {
@@ -223,13 +225,14 @@ exports.paginate = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
   // execute query with page and limit values
-  const companys = await CompanyModel.find()
+  const companys = await CompanyModel
+    .find()
     .limit(limit * 1)
     .skip((page - 1) * limit)
     .exec();
 
   // return response with company and current page
-  res.json({
+  res.send({
     companys,
     currentPage: page,
   });

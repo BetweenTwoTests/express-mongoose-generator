@@ -10,12 +10,9 @@ const Schema = mongoose.Schema;
  * Company Schema
  */
 
-const CompanySchema = new Schema(
-    {
-name: { type : String},
-nuae: { type : String}
-}
-);
+const CompanySchema = new Schema({
+  name: { type: String },
+});
 
 /**
  * Validations
