@@ -22,14 +22,14 @@ const _modelNameCapitalized_Model = mongoose.model('_modelNameCapitalized_');
  *      properties:
  *        name:
  *          type: string
- *          description: name
+ *          description: this is an example property generated for reference. The generator will generateProperties will be generated based on Model (TODO).
  *          example: lorem ipsum
  *    Update_modelNameCapitalized_:
  *      type: object
  *      properties:
  *         name:
  *            type: string
- *            description: name
+ *            description: this is an example property generated for reference. The generator will generateProperties will be generated based on Model (TODO).
  *            example: lorem ipsum
  *    _modelNameCapitalized_:
  *      allOf:
@@ -102,7 +102,7 @@ exports.show = async (req, res) => {
 
   let _modelName_ = await _modelNameCapitalized_Model.findOne({ _id: id }).exec();
 
-  return res.json(_modelName_);
+  return res.send(_modelName_);
 };
 
 /**
@@ -139,7 +139,7 @@ exports.create = async (req, res) => {
 
   _modelName_ = await _modelName_.save();
 
-  return res.status(201).json(_modelName_);
+  return res.status(201).send(_modelName_);
 };
 
 /**
@@ -185,7 +185,7 @@ exports.update = async (req, res) => {
   _updateFields_;
 
   _modelName_ = await _modelName_.save();
-  return res.json(_modelName_);
+  return res.send(_modelName_);
 };
 
 /**
@@ -213,7 +213,8 @@ exports.remove = async (req, res) => {
   let id = req.params.id;
 
   await _modelNameCapitalized_Model.findByIdAndRemove(id).exec();
-  return res.status(204).json();
+
+  return res.status(204).send();
 };
 
 exports.paginate = async (req, res) => {
@@ -228,7 +229,7 @@ exports.paginate = async (req, res) => {
     .exec();
 
   // return response with _modelName_ and current page
-  res.json({
+  res.send({
     _modelName_s,
     currentPage: page,
   });

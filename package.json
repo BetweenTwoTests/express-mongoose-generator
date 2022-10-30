@@ -1,8 +1,8 @@
 {
     "name": "express-mongoose-generator",
-    "version": "0.0.1",
-    "description": "Opinionated express-mongoose-generator",
-    "author": "Damien Perrier <damienperrier33@gmail.com>",
+    "version": "0.0.2",
+    "description": "Opinionated forked version of npm express-mongoose-generator",
+    "author": "BetweenTwoTests <betweentwotests@gmail.com>",
     "contributors": [
         "DamienP33",
         "romuloctba",

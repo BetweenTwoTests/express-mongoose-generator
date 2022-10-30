@@ -17,14 +17,27 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const ALLOWED_FIELDS_TYPES = ['string', 'number', 'date', 'boolean', 'array', 'objectId'];
+const ALLOWED_FIELDS_TYPES = [
+  'string',
+  'number',
+  'date',
+  'boolean',
+  'array',
+  'objectId',
+  // 'arrayString',
+  // 'arrayNumber',
+  // 'arrayDate',
+  // 'arrayBoolean',
+  // 'arrayObjectId',
+];
 const ALLOWED_REST_ARGUMENT = { YES: 'yes', NO: 'no' };
 const ALLOWED_FILE_TREE_ARGUMENT = { TYPE: 't', MODULE: 'm' };
 const CLI_PHRASES = {
   AVAILABLE_TYPE: 'Available types : string, number, date, boolean, array, objectId',
   QUESTION_MODEL_NAME: 'Model Name : ',
-  QUESTION_FIELD_NAME: 'Field Name (press <return> to stop adding fields) : ',
+  QUESTION_FIELD_NAME: 'New Field Name (press <return> to stop adding fields) : ',
   QUESTION_FIELD_TYPE: 'Field Type [string] : ',
+  QUESTION_FIELD_TYPE_FOLLOWUP: 'Field Type of the array [string] : ',
   QUESTION_FIELD_REF: 'Reference (model name referred by the objectId field) : ',
   QUESTION_GENERATE_REST: 'Generate Rest (yes/no) ? [yes] : ',
   QUESTION_FILES_TREE: 'Files tree generation grouped by Type or by Module (t/m) ? [t] : ',
@@ -42,19 +55,21 @@ const CLI_PHRASES = {
 program
   .version(version)
   .usage('[options]')
-  .option('-m, --model <modelName>', 'model name')
-  .option('-f, --fields <fields>', 'model fields (name1:type1,name2:type2)')
-  .option('-r, --rest', 'enable generation REST')
-  .option('-t, --tree <tree>', 'files tree generation grouped by <t>ype or by <m>odule')
+  // .option('-m, --model <modelName>', 'model name')
+  // .option('-f, --fields <fields>', 'model fields (name1:type1,name2:type2)')
+  // .option('-r, --rest', 'enable generation REST')
+  // .option('-t, --tree <tree>', 'files tree generation grouped by <t>ype or by <m>odule')
   .parse(process.argv);
 
 // Main program
 (function (path) {
-  if (program.model || program.fields) {
-    runNonInteractiveMode(path);
-  } else {
-    runInteractiveMode(path);
-  }
+  runInteractiveMode(path);
+  // Non-interactive mode not modified to support array of primitives and obj ref
+  // if (program.model || program.fields) {
+  //   runNonInteractiveMode(path);
+  // } else {
+  //   runInteractiveMode(path);
+  // }
 })('.');
 
 /**
@@ -96,13 +111,39 @@ function runInteractiveMode(path) {
                     cb(null, currentField.type);
                   });
                 },
+                isArray: function (cb) {
+                  let isArray = false;
+                  if (currentField.type.startsWith('array')) {
+                    isArray = true;
+                  }
+                  cb(null, isArray);
+                },
                 reference: function (cb) {
                   if (currentField.type === 'objectId') {
                     askQuestion(CLI_PHRASES.QUESTION_FIELD_REF, null, function (referenceName) {
                       referenceName = referenceName.trim().length === 0 ? 'INSERT_YOUR_REFERENCE_NAME_HERE' : referenceName;
                       cb(null, referenceName);
                     });
+                  } else if (currentField.type.startsWith('array')) {
+                    // If array, then force another question of type question
+                    // this follow-up type is in the same key as "reference"
+                    askQuestion(CLI_PHRASES.QUESTION_FIELD_TYPE_FOLLOWUP, isFieldTypeParamValid, function (fieldType) {
+                      currentField.type = fieldType.trim().length === 0 ? 'string' : fieldType;
+
+                      if (currentField.type === 'objectId') {
+                        // if array of objectIds, then ask for reference
+                        // this is in the key "reference", same as non-array type
+                        // the resulting field will vary by field.type
+                        askQuestion(CLI_PHRASES.QUESTION_FIELD_REF, null, function (referenceName) {
+                          referenceName = referenceName.trim().length === 0 ? 'INSERT_YOUR_REFERENCE_NAME_HERE' : referenceName;
+                          cb(null, referenceName);
+                        });
+                      } else {
+                        cb(null, currentField.type);
+                      }
+                    });
                   } else {
+                    // Skip to next field CLI_PHRASES.QUESTION_FIELD_TYPE
                     cb(null, null);
                   }
                 },
@@ -166,6 +207,7 @@ function runInteractiveMode(path) {
 
 /**
  * Get parameters in non-interactive mode
+ * TODO support array of primitives and obj ref a
  * @param {string} path destination path
  *
  */
