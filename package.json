@@ -1,6 +1,6 @@
 {
     "name": "express-mongoose-generator",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Opinionated forked version of npm express-mongoose-generator",
     "author": "BetweenTwoTests <betweentwotests@gmail.com>",
     "contributors": [
@@ -34,7 +34,6 @@
     "scripts": {
         "mongoose-gen": "./bin/mongoose-gen",
         "test": "mocha --reporter spec --bail --check-leaks test/",
-        "lint": "jshint ./**/*.js ./bin/mongoose-gen"
     },
     "engines": {
         "node": ">= 0.10.0"

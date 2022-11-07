@@ -80,7 +80,7 @@ exports.list = async (req, res) => {
  *     parameters:
  *       - name: id
  *         in: path
- *         description: _modelNameCapitalized_ ObjectID to delete
+ *         description: _modelNameCapitalized_ ObjectID to find
  *         required: true
  *         schema:
  *           type: string
@@ -153,7 +153,7 @@ exports.create = async (req, res) => {
  *     parameters:
  *       - name: id
  *         in: path
- *         description: _modelNameCapitalized_ ObjectID to delete
+ *         description: _modelNameCapitalized_ ObjectID to find
  *         required: true
  *         schema:
  *           type: string
@@ -199,7 +199,7 @@ exports.update = async (req, res) => {
  *     parameters:
  *       - name: id
  *         in: path
- *         description: _modelNameCapitalized_ ObjectID to delete
+ *         description: _modelNameCapitalized_ ObjectID to
  *         required: true
  *         schema:
  *           type: string
@@ -217,6 +217,39 @@ exports.remove = async (req, res) => {
   return res.status(204).send();
 };
 
+/**
+ * @openapi
+ * /_modelName_/p/paginate:
+ *   get:
+ *     tags:
+ *       - _modelName_
+ *     summary: Paginate companies
+ *     description: Returns a list of _modelNameCapitalized_, paginated
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         default: 1
+ *         description: page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         default: 10
+ *         description: limit per page
+ *     responses:
+ *       '200':
+ *         description: successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/_modelNameCapitalized_'
+ *       '500':
+ *         description: Error
+ */
 exports.paginate = async (req, res) => {
   // destructure page and limit and set default values
   const { page = 1, limit = 10 } = req.query;

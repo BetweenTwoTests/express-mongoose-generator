@@ -11,8 +11,10 @@ const Schema = mongoose.Schema;
  */
 // eslint-disable-next-line prettier/prettier
 const _schemaName_ = new Schema(
-    _fields_
-);
+    _fields_, 
+    { 
+  collection: '_modelNameCapitalized_',
+});
 
 /**
  * Validations
