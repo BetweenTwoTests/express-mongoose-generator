@@ -33,7 +33,7 @@
     "main": "bin/mongoose-gen",
     "scripts": {
         "mongoose-gen": "./bin/mongoose-gen",
-        "test": "mocha --reporter spec --bail --check-leaks test/",
+        "test": "mocha --reporter spec --bail --check-leaks test/"
     },
     "engines": {
         "node": ">= 0.10.0"
